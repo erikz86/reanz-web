@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parallax Network</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#05070d;
+    color:#fff;
+    font-family:'Inter',sans-serif;
+    overflow-x:hidden;
+}
+
+/* BACKGROUND */
+
+body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    background:
+    radial-gradient(circle at top,#00d9ff18 0%,transparent 30%),
+    radial-gradient(circle at bottom,#00d9ff12 0%,transparent 30%),
+    linear-gradient(180deg,#03040a,#05070d,#02040b);
+    z-index:-2;
+}
+
+body::after{
+    content:'';
+    position:fixed;
+    inset:0;
+    background-image:
+    linear-gradient(rgba(0,255,255,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,255,.03) 1px, transparent 1px);
+    background-size:45px 45px;
+    z-index:-1;
+    opacity:.25;
+}
+
+/* NAVBAR */
+
+.navbar{
+    position:fixed;
+    top:0;
+    width:100%;
+    padding:18px 7%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    z-index:999;
+    backdrop-filter:blur(12px);
+    background:rgba(0,0,0,.45);
+    border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-family:'Orbitron',sans-serif;
+    font-size:24px;
+    font-weight:700;
+}
+
+.logo-circle{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    border:2px solid #00d9ff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#00d9ff;
+    box-shadow:0 0 20px #00d9ff66;
+}
+
+.nav-links{
+    display:flex;
+    gap:35px;
+    align-items:center;
+}
+
+.nav-links a{
+    color:#fff;
+    text-decoration:none;
+    font-size:15px;
+    opacity:.8;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:#00d9ff;
+    opacity:1;
+}
+
+.join-btn{
+    padding:12px 26px;
+    border-radius:40px;
+    border:1px solid #00d9ff;
+    color:#00d9ff !important;
+    box-shadow:0 0 20px #00d9ff33;
+    transition:.3s;
+}
+
+.join-btn:hover{
+    background:#00d9ff;
+    color:#000 !important;
+}
+
+/* HERO */
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:160px 20px 100px;
+    position:relative;
+}
+
+.badge{
+    color:#ff9b42;
+    letter-spacing:3px;
+    font-size:14px;
+    margin-bottom:25px;
+}
+
+.hero h1{
+    font-family:'Orbitron',sans-serif;
+    font-size:78px;
+    line-height:1;
+    max-width:900px;
+    margin-bottom:30px;
+    animation:fadeUp 1s ease;
+}
+
+.hero h1 span{
+    color:#00d9ff;
+    text-shadow:0 0 18px #00d9ff88;
+}
+
+.hero p{
+    max-width:720px;
+    font-size:21px;
+    line-height:1.8;
+    opacity:.75;
+    margin-bottom:40px;
+}
+
+.store-buttons{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+.store-btn{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding:18px 28px;
+    border-radius:18px;
+    background:#0c1018;
+    border:1px solid rgba(255,255,255,.08);
+    color:#fff;
+    text-decoration:none;
+    transition:.3s;
+    min-width:250px;
+}
+
+.store-btn:hover{
+    transform:translateY(-4px);
+    border-color:#00d9ff;
+    box-shadow:0 0 25px rgba(0,217,255,.25);
+}
+
+.store-btn img{
+    width:42px;
+}
+
+.store-btn small{
+    opacity:.7;
+    display:block;
+}
+
+.store-btn strong{
+    font-size:22px;
+}
+
+/* PHONE */
+
+.phone-section{
+    display:flex;
+    justify-content:center;
+    margin-top:80px;
+}
+
+.phone{
+    width:360px;
+    height:720px;
+    border-radius:50px;
+    border:2px solid rgba(0,217,255,.18);
+    background:#06080d;
+    position:relative;
+    overflow:hidden;
+    box-shadow:
+    0 0 60px rgba(0,217,255,.15),
+    inset 0 0 50px rgba(0,217,255,.04);
+    animation:float 5s ease-in-out infinite;
+}
+
+.phone::before{
+    content:'';
+    position:absolute;
+    width:160px;
+    height:20px;
+    background:#111827;
+    border-radius:30px;
+    top:14px;
+    left:50%;
+    transform:translateX(-50%);
+}
+
+.balance-card{
+    width:82%;
+    margin:90px auto 0;
+    border-radius:24px;
+    background:#0b0f16;
+    border:1px solid rgba(255,255,255,.08);
+    padding:30px;
+    text-align:center;
+}
+
+.balance-card span{
+    color:#00d9ff;
+    letter-spacing:3px;
+    font-size:13px;
+}
+
+.balance-card h2{
+    font-family:'Orbitron',sans-serif;
+    font-size:52px;
+    margin:14px 0;
+}
+
+.balance-card p{
+    color:#ff9b42;
+    letter-spacing:3px;
+}
+
+.mining-circle{
+    width:220px;
+    height:220px;
+    border-radius:50%;
+    border:3px solid #00d9ff;
+    margin:70px auto 0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    box-shadow:0 0 40px rgba(0,217,255,.2);
+}
+
+.mining-circle::before{
+    content:'';
+    position:absolute;
+    inset:15px;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,.1);
+}
+
+.timer{
+    text-align:center;
+}
+
+.timer small{
+    opacity:.7;
+}
+
+.timer h3{
+    margin-top:12px;
+    font-family:'Orbitron',sans-serif;
+    font-size:34px;
+}
+
+/* FEATURES */
+
+.features{
+    padding:100px 7%;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:30px;
+}
+
+.feature-box{
+    background:#0a0e15;
+    border-radius:28px;
+    padding:40px;
+    border:1px solid rgba(255,255,255,.05);
+    transition:.4s;
+}
+
+.feature-box:hover{
+    transform:translateY(-10px);
+    border-color:#00d9ff44;
+    box-shadow:0 0 30px rgba(0,217,255,.12);
+}
+
+.feature-icon{
+    width:58px;
+    height:58px;
+    border-radius:16px;
+    background:#111827;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#00d9ff;
+    font-size:28px;
+    margin-bottom:24px;
+}
+
+.feature-box h3{
+    font-size:30px;
+    margin-bottom:18px;
+}
+
+.feature-box p{
+    opacity:.7;
+    line-height:1.8;
+}
+
+/* ECOSYSTEM */
+
+.ecosystem{
+    padding:120px 7%;
+    text-align:center;
+}
+
+.ecosystem h2{
+    font-family:'Orbitron',sans-serif;
+    font-size:64px;
+    margin-bottom:80px;
+}
+
+.ecosystem h2 span{
+    color:#00d9ff;
+}
+
+.ecosystem-center{
+    width:260px;
+    height:260px;
+    border-radius:50%;
+    border:2px solid rgba(0,217,255,.2);
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    box-shadow:0 0 60px rgba(0,217,255,.15);
+}
+
+.ecosystem-center::before{
+    content:'✦';
+    font-size:120px;
+    color:#00d9ff;
+    text-shadow:0 0 25px #00d9ff;
+}
+
+/* STATS */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    padding:70px 7%;
+    text-align:center;
+    gap:40px;
+}
+
+.stat h3{
+    font-family:'Orbitron',sans-serif;
+    font-size:52px;
+    color:#00d9ff;
+}
+
+.stat p{
+    margin-top:10px;
+    opacity:.7;
+    letter-spacing:2px;
+}
+
+/* FOOTER */
+
+.footer{
+    text-align:center;
+    padding:50px 20px;
+    opacity:.6;
+    border-top:1px solid rgba(255,255,255,.05);
+}
+
+/* ANIMATION */
+
+@keyframes float{
+    0%{transform:translateY(0px);}
+    50%{transform:translateY(-20px);}
+    100%{transform:translateY(0px);}
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+.hero h1{
+    font-size:52px;
+}
+
+.ecosystem h2{
+    font-size:42px;
+}
+
+.nav-links{
+    gap:18px;
+}
+
+.phone{
+    width:320px;
+    height:650px;
+}
+
+.balance-card h2{
+    font-size:42px;
+}
+}
+
+@media(max-width:700px){
+
+.navbar{
+    padding:18px 5%;
+}
+
+.nav-links a{
+    font-size:13px;
+}
+
+.hero{
+    padding-top:140px;
+}
+
+.hero h1{
+    font-size:42px;
+}
+
+.hero p{
+    font-size:16px;
+}
+
+.store-btn{
+    width:100%;
+}
+
+.logo span{
+    display:none;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+    <div class="logo">
+        <div class="logo-circle">✦</div>
+        <span>PARALLAX</span>
+    </div>
+
+    <div class="nav-links">
+        <a href="#">Home</a>
+
+        <a href="https://play.google.com/store/apps/details?id=xyz.parallaxnetwork.app&referrer=820EA964" target="_blank">
+            Unduh
+        </a>
+
+        <a href="https://play.google.com/store/apps/details?id=xyz.parallaxnetwork.app&referrer=820EA964" target="_blank" class="join-btn">
+            Daftar
+        </a>
+    </div>
+
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="badge">
+        EARLY ACCESS • CLOSED TEST
+    </div>
+
+    <h1>
+        THE BLOCKCHAIN<br>
+        <span>OF THE FUTURE</span>
+    </h1>
+
+    <p>
+        Join Parallax Network. Participate in a decentralized
+        consensus model driven by time and trust.
+    </p>
+
+    <div class="store-buttons">
+
+        <a class="store-btn"
+           href="https://play.google.com/store/apps/details?id=xyz.parallaxnetwork.app&referrer=820EA964"
+           target="_blank">
+
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg">
+
+            <div>
+                <small>GET IT ON</small>
+                <strong>Google Play</strong>
+            </div>
+
+        </a>
+
+        <div class="store-btn" style="opacity:.6;">
+            🍎
+            <div>
+                <small>Download on the</small>
+                <strong>App Store</strong>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- PHONE -->
+
+    <div class="phone-section">
+
+        <div class="phone">
+
+            <div class="balance-card">
+                <span>TOTAL BALANCE</span>
+                <h2>125.064236</h2>
+                <p>PAX</p>
+            </div>
+
+            <div class="mining-circle">
+
+                <div class="timer">
+                    <small>ACTIVE</small>
+                    <h3 id="timer">03:56:55</h3>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- FEATURES -->
+
+<section class="features">
+
+    <div class="feature-box">
+
+        <div class="feature-icon">
+            ⚡
+        </div>
+
+        <h3>Zero Battery</h3>
+
+        <p>
+            Forget hardware strain. Our cloud-based
+            consensus runs on servers, not on your device.
+        </p>
+
+    </div>
+
+    <div class="feature-box">
+
+        <div class="feature-icon">
+            👥
+        </div>
+
+        <h3>Tower Model</h3>
+
+        <p>
+            Build your trust graph. Invite verified users
+            and increase your network weight and rewards.
+        </p>
+
+    </div>
+
+    <div class="feature-box">
+
+        <div class="feature-icon">
+            🔒
+        </div>
+
+        <h3>Fair & Secure</h3>
+
+        <p>
+            A protocol designed for humans.
+            We use advanced metrics to prevent bot farms.
+        </p>
+
+    </div>
+
+</section>
+
+<!-- ECOSYSTEM -->
+
+<section class="ecosystem">
+
+    <h2>
+        THE <span>ECOSYSTEM</span>
+    </h2>
+
+    <div class="ecosystem-center"></div>
+
+</section>
+
+<!-- STATS -->
+
+<section class="stats">
+
+    <div class="stat">
+        <h3>+125,382</h3>
+        <p>EARLY ADOPTERS</p>
+    </div>
+
+    <div class="stat">
+        <h3>Global</h3>
+        <p>NETWORK REACH</p>
+    </div>
+
+    <div class="stat">
+        <h3>24/7</h3>
+        <p>SERVER UPTIME</p>
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer class="footer">
+    © 2025 Parallax Network
+</footer>
+
+<script>
+
+/* TIMER */
+
+let timer = document.getElementById("timer");
+
+let hours = 3;
+let minutes = 56;
+let seconds = 55;
+
+setInterval(()=>{
+
+    seconds--;
+
+    if(seconds < 0){
+        seconds = 59;
+        minutes--;
+    }
+
+    if(minutes < 0){
+        minutes = 59;
+        hours--;
+    }
+
+    if(hours < 0){
+        hours = 3;
+        minutes = 56;
+        seconds = 55;
+    }
+
+    timer.innerHTML =
+        String(hours).padStart(2,'0') + ":" +
+        String(minutes).padStart(2,'0') + ":" +
+        String(seconds).padStart(2,'0');
+
+},1000);
+
+/* MOUSE GLOW */
+
+document.addEventListener('mousemove',e=>{
+
+    const glow = document.createElement('div');
+
+    glow.style.position='fixed';
+    glow.style.left=e.clientX+'px';
+    glow.style.top=e.clientY+'px';
+    glow.style.width='8px';
+    glow.style.height='8px';
+    glow.style.borderRadius='50%';
+    glow.style.background='rgba(0,217,255,.7)';
+    glow.style.pointerEvents='none';
+    glow.style.zIndex='9999';
+    glow.style.boxShadow='0 0 20px #00d9ff';
+
+    document.body.appendChild(glow);
+
+    setTimeout(()=>{
+        glow.remove();
+    },400);
+
+});
+
+</script>
+
+</body>
+</html>
