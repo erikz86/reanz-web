@@ -247,16 +247,20 @@ body::after{
     text-align:center;
 }
 
-.balance-card span{
+.balance-label{
     color:#00d9ff;
-    letter-spacing:3px;
-    font-size:13px;
+    letter-spacing:4px;
+    font-size:14px;
+    margin-bottom:18px;
+    font-family:'Orbitron',sans-serif;
+    text-transform:uppercase;
 }
 
-.balance-card h2{
+.balance-number{
     font-family:'Orbitron',sans-serif;
-    font-size:52px;
-    margin:14px 0;
+    font-size:56px;
+    margin:10px 0 18px;
+    white-space:nowrap;
 }
 
 .balance-card p{
@@ -567,8 +571,12 @@ body::after{
         <div class="phone">
 
             <div class="balance-card">
-                <span>TOTAL BALANCE</span>
-                <h2>125.064236</h2>
+                <div class="balance-label">
+                    TOTAL BALANCE
+                </div>
+                <h2 class="balance-number">
+                125.668
+                </h2>
                 <p>PAX</p>
             </div>
 
